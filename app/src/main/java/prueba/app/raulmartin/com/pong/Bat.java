@@ -12,29 +12,30 @@ public class Bat {
     private float longitud;
 
     //X is the far left of the rectangle
-    private float x;
+    private float y;
+
 
     //Velocidad de la pala
     private float paddleSpeed;
 
     //En que direciones nos podemos mover;
     final int STOPPED = 0;
-    final int LEFT = 1;
-    final int RIGHT = 2;
+    final int TOP = 1;
+    final int BOT = 2;
 
     //Se esta moviendo la barra y la direccion
     private int paddleMoving = STOPPED;
 
     Bat(int screenX, int screenY){
 
-        longitud = 250;
-        float heigth = 30;
+        longitud = 30;
+        float heigth = 130;
 
-        x = screenY / 2;
+        y = screenY / 2;
 
-        float y = screenX - 50;
+        float x = screenX;
 
-        rect = new RectF(y, x, x+longitud, y + heigth);
+        rect = new RectF(y, x, y+longitud, x + heigth);
 
         paddleSpeed = 350;
     }
@@ -51,17 +52,17 @@ public class Bat {
     //Actualiza el motor, determina si la pala necesita cambios de movimiento
     //y coordina si es necesario
     void update(long fps){
-        if(paddleMoving == LEFT){
+        if(paddleMoving == BOT){
 
-            x = x - paddleSpeed /fps;
+            y = y - paddleSpeed /fps;
         }
 
-        if(paddleMoving == RIGHT){
-            x = x + paddleSpeed / fps;
+        if(paddleMoving == TOP){
+            y = y + paddleSpeed / fps;
 
         }
-        rect.left = x;
-        rect.right = x + longitud;
+        rect.left = y +  longitud;
+        rect.right = y;
     }
 
 }
