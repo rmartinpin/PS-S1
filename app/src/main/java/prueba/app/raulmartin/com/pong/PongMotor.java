@@ -132,18 +132,33 @@ class PongMotor extends SurfaceView implements Runnable{
 
         // Check for ball colliding with bat
         if(RectF.intersects(bat.getRect(),bola.getRect())) {
-            bola.setRandomXVelocity();
+            bola.setRandomYVelocity();
             bola.reverseYVelocity();
-            bola.clearObstacleY(bat.getRect().top - 2);
+            //bola.clearObstacleY(bat.getRect().top - 2);
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
         // Check for ball colliding with bat
         if(RectF.intersects(bat2.getRect(),bola.getRect())) {
-            bola.setRandomXVelocity();
+            bola.setRandomYVelocity();
             bola.reverseYVelocity();
+
             //bola.clearObstacleY(bat2.getRect().top - 2);
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
+        // If the ball hits left wall bounce
+        if(bola.getRect().left < 0){
+            bola.reverseXVelocity();
+            //bola.clearObstacleX(2);
+            //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
+        // If the ball hits right wall bounce
+        if(bola.getRect().right > screenX - 10){
+            bola.reverseXVelocity();
+            //bola.clearObstacleX(screenX - 22);
+            //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
+        }
+
     }
 
     void restart(){

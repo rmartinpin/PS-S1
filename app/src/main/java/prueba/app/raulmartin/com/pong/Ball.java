@@ -42,7 +42,7 @@ public class Ball {
         xVelocity = - xVelocity;
     }
 
-    void setRandomXVelocity(){
+    void setRandomYVelocity(){
         Random generator = new Random();
         int answer = generator.nextInt(2);
 
