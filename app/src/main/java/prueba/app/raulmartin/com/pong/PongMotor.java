@@ -67,7 +67,7 @@ class PongMotor extends SurfaceView implements Runnable{
         screenY = y;
 
         //Inicializamos la pala
-        bat = new Bat(screenY,screenX);
+        bat = new Bat(screenX,screenY);
 
         //Pala2
         bat2 = new Bat2(screenX,screenY);
@@ -190,13 +190,13 @@ class PongMotor extends SurfaceView implements Runnable{
 
                 pause = false;
 
-                if(motionEvent.getY() > screenY / 2){
-                    bat.setMovementState(bat.TOP);
-                    //bat2.setMovementState(bat2.TOP);
+                if(motionEvent.getX() > screenX / 2){
+                    bat.setMovementState(bat.RIGHT);
+                    bat2.setMovementState(bat2.RIGHT);
                 }
                 else{
-                    bat.setMovementState(bat.BOT);
-                    //bat2.setMovementState(bat2.BOT);
+                    bat.setMovementState(bat.LEFT);
+                    bat2.setMovementState(bat2.LEFT);
                 }
 
                 break;
