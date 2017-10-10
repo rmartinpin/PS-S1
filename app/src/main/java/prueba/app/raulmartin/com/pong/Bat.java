@@ -30,11 +30,11 @@ public class Bat {
         longitud = 250;
         float heigth = 30;
 
-        x = screenX / 2;
+        x = screenY / 2;
 
-        float y = screenY - 50;
+        float y = screenX - 50;
 
-        rect = new RectF(x, y, x+longitud, y + heigth);
+        rect = new RectF(y, x, x+longitud, y + heigth);
 
         paddleSpeed = 350;
     }
