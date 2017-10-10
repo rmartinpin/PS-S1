@@ -159,11 +159,30 @@ class PongMotor extends SurfaceView implements Runnable{
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
+        //SI se va la bola por la parte de arriba
+        if(bola.getRect().top < 0){
+
+            //bola.reverseYVelocity();
+            //bola.clearObstacleY(12);
+            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+        }
+
+        //si se va la bola por la parte de abajo
+        if(bola.getRect().bottom < 0){
+            bola.clearObstacleY(screenY - 2);
+            //bola.reset();
+            //bola.reverseYVelocity();
+            //bola.clearObstacleY(12);
+            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+
+        }
+
     }
 
     void restart(){
 
-        bola.reset(screenX,screenY);
+        // Put the ball back to the start
+
 
     }
 

@@ -48,6 +48,7 @@ public class Bat {
     void setMovementState(int state){
         paddleMoving = state;
     }
+
     //Actualiza el motor, determina si la pala necesita cambios de movimiento
     //y coordina si es necesario
     void update(long fps){
