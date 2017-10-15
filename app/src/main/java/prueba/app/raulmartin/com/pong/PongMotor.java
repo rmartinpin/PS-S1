@@ -176,6 +176,24 @@ class PongMotor extends SurfaceView implements Runnable{
             //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
 
         }
+        //Choque con las paredes del bat 1
+        if (bat.getRect().left<0){
+            bat.setMovementState(bat.STOPPED);
+            bat.setMovementState(bat2.RIGHT);
+        }
+        if(bat.getRect().right > screenX){
+            bat.setMovementState(bat.STOPPED);
+            bat.setMovementState(bat2.LEFT);
+        }
+        //Choque con las paredes del bat2
+        if (bat2.getRect().left<0){
+            bat2.setMovementState(bat2.STOPPED);
+            bat2.setMovementState(bat2.RIGHT);
+        }
+        if(bat2.getRect().right > screenX){
+            bat2.setMovementState(bat2.STOPPED);
+            bat2.setMovementState(bat2.LEFT);
+        }
 
     }
 
@@ -223,13 +241,18 @@ class PongMotor extends SurfaceView implements Runnable{
             case MotionEvent.ACTION_DOWN:
 
                 pause = false;
-
-                if(motionEvent.getX() > screenX / 2){
+                //movimiento pala 1 a la derecha
+                if(motionEvent.getX() > screenX / 2 && motionEvent.getY() > screenY /2 ){
                     bat.setMovementState(bat.RIGHT);
-                    bat2.setMovementState(bat2.RIGHT);
-                }
-                else{
+
+                }else{
+
+
                     bat.setMovementState(bat.LEFT);
+                }
+                if((motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY/2)){
+                    bat2.setMovementState(bat2.RIGHT);
+                }else{
                     bat2.setMovementState(bat2.LEFT);
                 }
 

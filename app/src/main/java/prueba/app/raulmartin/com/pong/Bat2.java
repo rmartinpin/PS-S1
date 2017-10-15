@@ -35,7 +35,7 @@ public class Bat2 {
 
         rect = new RectF(x, y, x+longitud, y + heigth);
 
-        paddleSpeed = 350;
+        paddleSpeed = 370;
     }
 
 
