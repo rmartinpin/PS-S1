@@ -49,16 +49,6 @@ public class Ball {
         }
     }
 
-    void clearObstacleY(float y){
-        rect.bottom = y;
-        rect.top = y - ballHeight;
-    }
-
-    void clearObstacleX(float x){
-        rect.left = x;
-        rect.right = x + ballWidth;
-    }
-
     void reset(int x, int y){
         rect.left = x / 2;
         rect.top = y - 50;
