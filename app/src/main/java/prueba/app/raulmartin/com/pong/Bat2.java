@@ -29,7 +29,7 @@ public class Bat2 {
         longitud = 250;
         float heigth = 30;
 
-        x = screenX / 2;
+        x = screenX / 2 - 125;
 
         float y = 50;
 

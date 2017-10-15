@@ -13,12 +13,10 @@ public class Ball {
 
 
     Ball(){
-        xVelocity = 200;
-        yVelocity = -350;
+        xVelocity = 210;
+        yVelocity = -370;
 
         rect = new RectF();
-
-
     }
 
     RectF getRect(){
