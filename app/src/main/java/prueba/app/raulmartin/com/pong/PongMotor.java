@@ -177,22 +177,21 @@ class PongMotor extends SurfaceView implements Runnable{
 
         }
         //Choque con las paredes del bat 1
-        if (bat.getRect().left<0){
+        if (bat.getRect().left <= 0){
             bat.setMovementState(bat.STOPPED);
-            bat.setMovementState(bat2.RIGHT);
         }
-        if(bat.getRect().right > screenX){
+        if(bat.getRect().right >= screenX ){
             bat.setMovementState(bat.STOPPED);
-            bat.setMovementState(bat2.LEFT);
+
         }
         //Choque con las paredes del bat2
-        if (bat2.getRect().left<0){
+        if (bat2.getRect().left <= 0){
             bat2.setMovementState(bat2.STOPPED);
-            bat2.setMovementState(bat2.RIGHT);
+
         }
-        if(bat2.getRect().right > screenX){
+        if(bat2.getRect().right >= screenX){
             bat2.setMovementState(bat2.STOPPED);
-            bat2.setMovementState(bat2.LEFT);
+
         }
 
     }
@@ -245,14 +244,13 @@ class PongMotor extends SurfaceView implements Runnable{
                 if(motionEvent.getX() > screenX / 2 && motionEvent.getY() > screenY /2 ){
                     bat.setMovementState(bat.RIGHT);
 
-                }else{
-
-
+                }if(motionEvent.getX() < screenX / 2 && motionEvent.getY() > screenY /2 ){
                     bat.setMovementState(bat.LEFT);
                 }
-                if((motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY/2)){
+                if((motionEvent.getX() > screenX / 2 && motionEvent.getY() < screenY/2)){
                     bat2.setMovementState(bat2.RIGHT);
-                }else{
+                }
+                if(motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY /2 ){
                     bat2.setMovementState(bat2.LEFT);
                 }
 
