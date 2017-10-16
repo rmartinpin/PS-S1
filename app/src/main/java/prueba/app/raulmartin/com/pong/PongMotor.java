@@ -225,7 +225,7 @@ class PongMotor extends SurfaceView implements Runnable{
             //Dibuja la bola
             canvas.drawRect(bola.getRect(),paint);
 
-            //Muestra to dibujao'
+            //Muestra to dibujado
             ourHolder.unlockCanvasAndPost(canvas);
         }
 
