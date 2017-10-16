@@ -171,7 +171,7 @@ class PongMotor extends SurfaceView implements Runnable{
         //si se va la bola por la parte de abajo
         if(bola.getRect().bottom < 0){
 
-            
+
             //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
 
         }
