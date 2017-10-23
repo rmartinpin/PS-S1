@@ -73,7 +73,7 @@ class PongMotor extends SurfaceView implements Runnable{
         bat2 = new Bat2(screenX,screenY);
 
         //Inicia la bola
-        bola = new Ball();
+        bola = new Ball(screenX/2,screenY/2,screenX/2,screenY/2);
 
         restart();
     }
@@ -146,14 +146,14 @@ class PongMotor extends SurfaceView implements Runnable{
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
         // If the ball hits left wall bounce
-        if(bola.getRect().left < 0){
+        if(bola.getRect().left <= 1){
             bola.reverseXVelocity();
 
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
         // If the ball hits right wall bounce
-        if(bola.getRect().right > screenX - 10){
+        if(bola.getRect().right >= screenX ){
             bola.reverseXVelocity();
 
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);

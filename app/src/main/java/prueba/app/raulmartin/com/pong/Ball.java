@@ -10,6 +10,10 @@ public class Ball {
     private float yVelocity;
     private float ballWidth = 20;
     private float ballHeight  = 20;
+    private float puntoX;
+    private float puntoY;
+    private float ancho;
+    private float alto;
 
     //Cambiamos el constructor de la bola
     Ball(){
@@ -19,6 +23,15 @@ public class Ball {
         rect = new RectF();
     }
 
+    Ball(float puntoX, float puntoY,float ancho, float alto){
+        xVelocity = 210;
+        yVelocity = 0;
+
+        ancho = ancho + ballWidth;
+        alto = alto + ballHeight;
+
+        rect = new RectF(puntoX,puntoY,ancho,alto);
+    }
     RectF getRect(){
 
         return rect;
