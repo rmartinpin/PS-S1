@@ -130,32 +130,32 @@ class PongMotor extends SurfaceView implements Runnable{
 
         bola.update(fps);
 
-        // Check for ball colliding with bat
+        // Choque con el barra 1
         if(RectF.intersects(bat.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
-            //bola.clearObstacleY(bat.getRect().top - 2);
+
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
-        // Check for ball colliding with bat2
+        // Choque con la barra 2
         if(RectF.intersects(bat2.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
 
-            //bola.clearObstacleY(bat2.getRect().top - 2);
+
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
         // If the ball hits left wall bounce
         if(bola.getRect().left < 0){
             bola.reverseXVelocity();
-            //bola.clearObstacleX(2);
+
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
         // If the ball hits right wall bounce
         if(bola.getRect().right > screenX - 10){
             bola.reverseXVelocity();
-            //bola.clearObstacleX(screenX - 22);
+
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
@@ -163,25 +163,17 @@ class PongMotor extends SurfaceView implements Runnable{
         if(bola.getRect().top > screenY +20){
             bola.clearObstacleY(screenY);
 
-            }
-            //bola.reverseYVelocity();
-            //bola.clearObstacleY(12);
-            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+        }
+
+
 
 
         //si se va la bola por la parte de abajo
         if(bola.getRect().bottom < 0){
-<<<<<<< HEAD
-
-
-=======
             bola.clearObstacleY(screenY);
             //bola.reset();
             //bola.reverseYVelocity();
-            //bola.clearObstacleY(12);
->>>>>>> parent of e0644ac... Ajuste de codigo
             //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
-
         }
         //Choque con las paredes el bat 1
         if (bat.getRect().left <= 0){
