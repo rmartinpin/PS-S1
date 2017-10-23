@@ -1,10 +1,9 @@
 package prueba.app.raulmartin.com.pong;
 
+
 import android.graphics.RectF;
 
-
 public class Bat {
-
     //para guardar coordenadas
     private RectF rect;
 
@@ -30,13 +29,13 @@ public class Bat {
         longitud = 250;
         float heigth = 30;
 
-        x = screenX / 2;
+        x = screenX / 2 - 125;
 
-        float y = screenY - 50;
+        float y =screenY- 50;
 
         rect = new RectF(x, y, x+longitud, y + heigth);
 
-        paddleSpeed = 350;
+        paddleSpeed = 370;
     }
 
 
@@ -44,10 +43,12 @@ public class Bat {
     RectF getRect(){
         return rect;
     }
+
     //Para definir el movimiento, si vamos a izquierda o derecha.
     void setMovementState(int state){
         paddleMoving = state;
     }
+
     //Actualiza el motor, determina si la pala necesita cambios de movimiento
     //y coordina si es necesario
     void update(long fps){
