@@ -11,7 +11,7 @@ public class Ball {
     private float ballWidth = 20;
     private float ballHeight  = 20;
 
-
+    //Cambiamos el constructor de la bola
     Ball(){
         xVelocity = 210;
         yVelocity = -370;

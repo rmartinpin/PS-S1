@@ -24,6 +24,7 @@ public class Bat {
     //Se esta moviendo la barra y la direccion
     private int paddleMoving = STOPPED;
 
+
     Bat(int screenX, int screenY){
 
         longitud = 250;
