@@ -2,58 +2,46 @@ package prueba.app.raulmartin.com.pong;
 
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.util.Log;
-import android.graphics.RectF;
 
+import java.util.Random;
 
 
 class PongMotor extends SurfaceView implements Runnable{
 
 
+    //Nuevo tipo random para generar numeros random
+    Random aleat = new Random();
+    //Pala 1
+    Bat bat;
+    //Pala2
+    Bat bat2;
+    Ball bola;
     //Hilo
     private Thread hiloJuego = null;
-
     //SurfaceHolder
     private SurfaceHolder ourHolder;
-
     //nos indica cuando se esta jungando o no
     private volatile boolean playing;
-
-
     //Juego pausado al principio
     private boolean pause = true;
-
     //Canvas y paint
     private Canvas canvas;
     private Paint paint;
-
     //Como es la pantalla
     private int screenX;
     private int screenY;
-
     //FPS
     private long fps;
-
-
     //Para el calculo de FPS
     private long tiempoDeFrame;
-
-
-    //Pala 1
-    Bat bat;
-
-    //Pala2
-    Bat2 bat2;
-
-    Ball bola;
-
 
     public PongMotor(Context context, int x, int y) {
         super(context);
@@ -70,7 +58,7 @@ class PongMotor extends SurfaceView implements Runnable{
         bat = new Bat(screenX,screenY);
 
         //Pala2
-        bat2 = new Bat2(screenX,screenY);
+        bat2 = new Bat(screenX, screenY, (screenX / 2 - 125), 50);
 
         //Inicia la bola
         bola = new Ball();
@@ -134,6 +122,8 @@ class PongMotor extends SurfaceView implements Runnable{
         if(RectF.intersects(bat.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
+            paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
+            canvas.drawRect(bola.getRect(), paint); //Color aleatorio
             //bola.clearObstacleY(bat.getRect().top - 2);
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
@@ -141,7 +131,9 @@ class PongMotor extends SurfaceView implements Runnable{
         if(RectF.intersects(bat2.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
-
+            Random aleat = new Random();
+            paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
+            canvas.drawRect(bola.getRect(), paint);
             //bola.clearObstacleY(bat2.getRect().top - 2);
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
@@ -171,15 +163,15 @@ class PongMotor extends SurfaceView implements Runnable{
 
         //si se va la bola por la parte de abajo
         if(bola.getRect().bottom < 0){
-<<<<<<< HEAD
+//<<<<<<< HEAD //Comentado porque si no no me compila, borradlo si hace falta.
 
 
-=======
+//=======
             bola.clearObstacleY(screenY);
             //bola.reset();
             //bola.reverseYVelocity();
             //bola.clearObstacleY(12);
->>>>>>> parent of e0644ac... Ajuste de codigo
+//>>>>>>> parent of e0644ac... Ajuste de codigo
             //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
 
         }
