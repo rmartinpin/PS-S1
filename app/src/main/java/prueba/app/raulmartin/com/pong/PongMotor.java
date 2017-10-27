@@ -6,6 +6,7 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Paint;
 import android.graphics.RectF;
+import android.os.Handler;
 import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
@@ -17,6 +18,7 @@ import java.util.Random;
 class PongMotor extends SurfaceView implements Runnable{
 
 
+
     //Nuevo tipo random para generar numeros random
     Random aleat = new Random();
     //Pala 1
@@ -24,6 +26,7 @@ class PongMotor extends SurfaceView implements Runnable{
     //Pala2
     Bat bat2;
     Ball bola;
+    Handler temp = new Handler();
     //Hilo
     private Thread hiloJuego = null;
     //SurfaceHolder
@@ -38,6 +41,16 @@ class PongMotor extends SurfaceView implements Runnable{
     //Como es la pantalla
     private int screenX;
     private int screenY;
+    //El temporizador para crear palos
+    Runnable ejec = new Runnable() {
+        @Override
+        public void run() {
+            int x = aleat.nextInt(screenX);
+            int y = aleat.nextInt(screenY);
+            new Bat(screenX, screenY, x, y);
+            temp.postDelayed(this, 10000);
+        }
+    };
     //FPS
     private long fps;
     //Para el calculo de FPS
@@ -62,6 +75,9 @@ class PongMotor extends SurfaceView implements Runnable{
 
         //Inicia la bola
         bola = new Ball();
+
+        //Inicia el temporizador
+        temp.postDelayed(ejec, 10000);
 
         restart();
     }
@@ -239,18 +255,13 @@ class PongMotor extends SurfaceView implements Runnable{
             case MotionEvent.ACTION_DOWN:
 
                 pause = false;
-                //movimiento pala 1 a la derecha
-                if(motionEvent.getX() > screenX / 2 && motionEvent.getY() > screenY /2 ){
-                    bat.setMovementState(bat.RIGHT);
+                //movimiento bola derecha e izquierda
+                if (motionEvent.getX() > screenX / 2) {
+                    bola.setVelocity(210, 0);
 
-                }if(motionEvent.getX() < screenX / 2 && motionEvent.getY() > screenY /2 ){
-                    bat.setMovementState(bat.LEFT);
                 }
-                if((motionEvent.getX() > screenX / 2 && motionEvent.getY() < screenY/2)){
-                    bat2.setMovementState(bat2.RIGHT);
-                }
-                if(motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY /2 ){
-                    bat2.setMovementState(bat2.LEFT);
+                if (motionEvent.getX() < screenX / 2) {
+                    bola.setVelocity(-210, 0);
                 }
 
                 break;
