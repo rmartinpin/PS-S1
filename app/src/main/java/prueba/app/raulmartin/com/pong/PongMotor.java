@@ -73,7 +73,7 @@ class PongMotor extends SurfaceView implements Runnable{
         bat2 = new Bat2(screenX,screenY);
 
         //Inicia la bola
-        bola = new Ball(screenX/2,screenY/2,screenX/2,screenY/2);
+        bola = new Ball(screenX,screenY);
 
         restart();
     }
@@ -120,8 +120,8 @@ class PongMotor extends SurfaceView implements Runnable{
 
 
     }
-    //Ejecuta cundo se llama a Pausa en el metodo de PongActivity
-    private void update(){
+    //Ejecuta cuando se llama a Pausa en el metodo de PongActivity
+    private void update() {
         //move de bat if required
         bat.update(fps);
 
@@ -130,7 +130,7 @@ class PongMotor extends SurfaceView implements Runnable{
 
         bola.update(fps);
 
-        // Choque con el barra 1
+        /* Choque con el barra 1
         if(RectF.intersects(bat.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
@@ -144,21 +144,23 @@ class PongMotor extends SurfaceView implements Runnable{
 
 
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
-        }
+
+        }*/
         // If the ball hits left wall bounce
-        if(bola.getRect().left <= 1){
-            bola.reverseXVelocity();
+        if (bola.getRect().left <= 1) {
+            bola.setMovementState(bola.STOPPED);
 
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
         // If the ball hits right wall bounce
-        if(bola.getRect().right >= screenX ){
-            bola.reverseXVelocity();
+        if (bola.getRect().right >= screenX) {
+            bola.setMovementState(bola.STOPPED);
 
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
-
+    }
+    /*
         //SI se va la bola por la parte de abajo
         if(bola.getRect().top > screenY +20){
             bola.clearObstacleY(screenY);
@@ -192,8 +194,8 @@ class PongMotor extends SurfaceView implements Runnable{
             bat2.setMovementState(bat2.STOPPED);
 
         }
+*/
 
-    }
 
     void restart(){
 
@@ -240,25 +242,26 @@ class PongMotor extends SurfaceView implements Runnable{
 
                 pause = false;
                 //movimiento pala 1 a la derecha
-                if(motionEvent.getX() > screenX / 2 && motionEvent.getY() > screenY /2 ){
-                    bat.setMovementState(bat.RIGHT);
+                if(motionEvent.getX() > screenX / 2  ){
+                    bola.setMovementState(bola.RIGHT);
 
-                }if(motionEvent.getX() < screenX / 2 && motionEvent.getY() > screenY /2 ){
-                    bat.setMovementState(bat.LEFT);
+                }if(motionEvent.getX() < screenX / 2 ){
+                    bola.setMovementState(bola.LEFT);
                 }
+                /*
                 if((motionEvent.getX() > screenX / 2 && motionEvent.getY() < screenY/2)){
                     bat2.setMovementState(bat2.RIGHT);
                 }
                 if(motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY /2 ){
                     bat2.setMovementState(bat2.LEFT);
-                }
+                }*/
 
                 break;
 
             // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
-                bat.setMovementState(bat.STOPPED);
-                bat2.setMovementState(bat2.STOPPED);
+                bola.setMovementState(bola.STOPPED);
+                //bat2.setMovementState(bat2.STOPPED);
                 break;
         }
 
