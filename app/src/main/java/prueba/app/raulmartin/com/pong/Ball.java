@@ -2,7 +2,7 @@ package prueba.app.raulmartin.com.pong;
 
 
 import android.graphics.RectF;
-
+import java.util.Random;
 public class Ball {
     //para guardar coordenadas
     private RectF rect;
@@ -23,6 +23,16 @@ public class Ball {
 
     //Se esta moviendo la barra y la direccion
     private int paddleMoving = STOPPED;
+
+
+  /*
+    public void setVelocity(float xVel, float yVel) {
+        xVelocity = xVel;
+        yVelocity = yVel;
+    }
+
+    void update(long fps){
+    */
 
 
     Ball(int screenX, int screenY){

@@ -2,58 +2,59 @@ package prueba.app.raulmartin.com.pong;
 
 
 import android.content.Context;
+import android.graphics.Canvas;
 import android.graphics.Color;
-import android.os.Bundle;
+import android.graphics.Paint;
+import android.graphics.RectF;
+import android.os.Handler;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.SurfaceHolder;
 import android.view.SurfaceView;
-import android.graphics.Canvas;
-import android.graphics.Paint;
-import android.util.Log;
-import android.graphics.RectF;
 
+import java.util.Random;
 
 
 class PongMotor extends SurfaceView implements Runnable{
 
 
+
+    //Nuevo tipo random para generar numeros random
+    Random aleat = new Random();
+    //Pala 1
+    Bat bat;
+    //Pala2
+    Bat bat2;
+    Ball bola;
+    Handler temp = new Handler();
     //Hilo
     private Thread hiloJuego = null;
-
     //SurfaceHolder
     private SurfaceHolder ourHolder;
-
     //nos indica cuando se esta jungando o no
     private volatile boolean playing;
-
-
     //Juego pausado al principio
     private boolean pause = true;
-
     //Canvas y paint
     private Canvas canvas;
     private Paint paint;
-
     //Como es la pantalla
     private int screenX;
     private int screenY;
-
+    //El temporizador para crear palos
+    Runnable ejec = new Runnable() {
+        @Override
+        public void run() {
+            int x = aleat.nextInt(screenX);
+            int y = aleat.nextInt(screenY);
+            new Bat(screenX, screenY, x, y);
+            temp.postDelayed(this, 10000);
+        }
+    };
     //FPS
     private long fps;
-
-
     //Para el calculo de FPS
     private long tiempoDeFrame;
-
-
-    //Pala 1
-    Bat bat;
-
-    //Pala2
-    Bat2 bat2;
-
-    Ball bola;
-
 
     public PongMotor(Context context, int x, int y) {
         super(context);
@@ -70,10 +71,13 @@ class PongMotor extends SurfaceView implements Runnable{
         bat = new Bat(screenX,screenY);
 
         //Pala2
-        bat2 = new Bat2(screenX,screenY);
+        bat2 = new Bat(screenX, screenY, (screenX / 2 - 125), 50);
 
         //Inicia la bola
         bola = new Ball(screenX,screenY);
+
+        //Inicia el temporizador
+        temp.postDelayed(ejec, 10000);
 
         restart();
     }
@@ -135,12 +139,24 @@ class PongMotor extends SurfaceView implements Runnable{
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
 
+            paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
+            canvas.drawRect(bola.getRect(), paint); //Color aleatorio
+            //bola.clearObstacleY(bat.getRect().top - 2);
+
+
+
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
         // Choque con la barra 2
         if(RectF.intersects(bat2.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
+
+            Random aleat = new Random();
+            paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
+            canvas.drawRect(bola.getRect(), paint);
+            //bola.clearObstacleY(bat2.getRect().top - 2);
+
 
 
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
@@ -169,12 +185,28 @@ class PongMotor extends SurfaceView implements Runnable{
 
 
 
+  /*
+        //si se va la bola por la parte de abajo
+        if(bola.getRect().bottom < 0){
+//<<<<<<< HEAD //Comentado porque si no no me compila, borradlo si hace falta.
+
+
+//=======
+            bola.clearObstacleY(screenY);
+            //bola.reset();
+            //bola.reverseYVelocity();
+            //bola.clearObstacleY(12);
+//>>>>>>> parent of e0644ac... Ajuste de codigo
+=======
+
 
         //si se va la bola por la parte de abajo
         if(bola.getRect().bottom < 0){
             bola.clearObstacleY(screenY);
             //bola.reset();
             //bola.reverseYVelocity();
+           */
+
             //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
         }
         //Choque con las paredes el bat 1
@@ -241,6 +273,8 @@ class PongMotor extends SurfaceView implements Runnable{
             case MotionEvent.ACTION_DOWN:
 
                 pause = false;
+
+
                 //movimiento pala 1 a la derecha
                 if(motionEvent.getX() > screenX / 2  ){
                     bola.setMovementState(bola.RIGHT);
@@ -255,6 +289,7 @@ class PongMotor extends SurfaceView implements Runnable{
                 if(motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY /2 ){
                     bat2.setMovementState(bat2.LEFT);
                 }*/
+
 
                 break;
 
