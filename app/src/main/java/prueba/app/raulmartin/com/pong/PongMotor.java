@@ -74,7 +74,7 @@ class PongMotor extends SurfaceView implements Runnable{
         bat2 = new Bat(screenX, screenY, (screenX / 2 - 125), 50);
 
         //Inicia la bola
-        bola = new Ball();
+        bola = new Ball(screenX,screenY);
 
         //Inicia el temporizador
         temp.postDelayed(ejec, 10000);
@@ -124,8 +124,8 @@ class PongMotor extends SurfaceView implements Runnable{
 
 
     }
-    //Ejecuta cundo se llama a Pausa en el metodo de PongActivity
-    private void update(){
+    //Ejecuta cuando se llama a Pausa en el metodo de PongActivity
+    private void update() {
         //move de bat if required
         bat.update(fps);
 
@@ -134,49 +134,58 @@ class PongMotor extends SurfaceView implements Runnable{
 
         bola.update(fps);
 
-        // Check for ball colliding with bat
+        /* Choque con el barra 1
         if(RectF.intersects(bat.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
+
             paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
             canvas.drawRect(bola.getRect(), paint); //Color aleatorio
             //bola.clearObstacleY(bat.getRect().top - 2);
+
+
+
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
         }
-        // Check for ball colliding with bat2
+        // Choque con la barra 2
         if(RectF.intersects(bat2.getRect(),bola.getRect())) {
             bola.setRandomYVelocity();
             bola.reverseYVelocity();
+
             Random aleat = new Random();
             paint.setARGB(255, aleat.nextInt(256), aleat.nextInt(256), aleat.nextInt(256));
             canvas.drawRect(bola.getRect(), paint);
             //bola.clearObstacleY(bat2.getRect().top - 2);
+
+
+
             //soundPool.play(beep1ID, 1, 1, 0, 0, 1);
-        }
+
+        }*/
         // If the ball hits left wall bounce
-        if(bola.getRect().left < 0){
-            bola.reverseXVelocity();
-            //bola.clearObstacleX(2);
+        if (bola.getRect().left <= 1) {
+            bola.setMovementState(bola.STOPPED);
+
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
 
         // If the ball hits right wall bounce
-        if(bola.getRect().right > screenX - 10){
-            bola.reverseXVelocity();
-            //bola.clearObstacleX(screenX - 22);
+        if (bola.getRect().right >= screenX) {
+            bola.setMovementState(bola.STOPPED);
+
             //soundPool.play(beep3ID, 1, 1, 0, 0, 1);
         }
-
+    }
+    /*
         //SI se va la bola por la parte de abajo
         if(bola.getRect().top > screenY +20){
             bola.clearObstacleY(screenY);
 
-            }
-            //bola.reverseYVelocity();
-            //bola.clearObstacleY(12);
-            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+        }
 
 
+
+  /*
         //si se va la bola por la parte de abajo
         if(bola.getRect().bottom < 0){
 //<<<<<<< HEAD //Comentado porque si no no me compila, borradlo si hace falta.
@@ -188,8 +197,17 @@ class PongMotor extends SurfaceView implements Runnable{
             //bola.reverseYVelocity();
             //bola.clearObstacleY(12);
 //>>>>>>> parent of e0644ac... Ajuste de codigo
-            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
+=======
 
+
+        //si se va la bola por la parte de abajo
+        if(bola.getRect().bottom < 0){
+            bola.clearObstacleY(screenY);
+            //bola.reset();
+            //bola.reverseYVelocity();
+           */
+
+            //soundPool.play(beep2ID, 1, 1, 0, 0, 1);
         }
         //Choque con las paredes el bat 1
         if (bat.getRect().left <= 0){
@@ -208,8 +226,8 @@ class PongMotor extends SurfaceView implements Runnable{
             bat2.setMovementState(bat2.STOPPED);
 
         }
+*/
 
-    }
 
     void restart(){
 
@@ -255,21 +273,30 @@ class PongMotor extends SurfaceView implements Runnable{
             case MotionEvent.ACTION_DOWN:
 
                 pause = false;
-                //movimiento bola derecha e izquierda
-                if (motionEvent.getX() > screenX / 2) {
-                    bola.setVelocity(210, 0);
 
+
+                //movimiento pala 1 a la derecha
+                if(motionEvent.getX() > screenX / 2  ){
+                    bola.setMovementState(bola.RIGHT);
+
+                }if(motionEvent.getX() < screenX / 2 ){
+                    bola.setMovementState(bola.LEFT);
                 }
-                if (motionEvent.getX() < screenX / 2) {
-                    bola.setVelocity(-210, 0);
+                /*
+                if((motionEvent.getX() > screenX / 2 && motionEvent.getY() < screenY/2)){
+                    bat2.setMovementState(bat2.RIGHT);
                 }
+                if(motionEvent.getX() < screenX / 2 && motionEvent.getY() < screenY /2 ){
+                    bat2.setMovementState(bat2.LEFT);
+                }*/
+
 
                 break;
 
             // Player has removed finger from screen
             case MotionEvent.ACTION_UP:
-                bat.setMovementState(bat.STOPPED);
-                bat2.setMovementState(bat2.STOPPED);
+                bola.setMovementState(bola.STOPPED);
+                //bat2.setMovementState(bat2.STOPPED);
                 break;
         }
 

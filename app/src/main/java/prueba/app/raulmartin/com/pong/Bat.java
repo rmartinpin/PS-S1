@@ -20,6 +20,7 @@ public class Bat {
     //Se esta moviendo la barra y la direccion
     private int paddleMoving = STOPPED;
 
+
     Bat(int screenX, int screenY){
 
         x = screenX / 2 - 125;
